@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".MainActivity3">
+
+    <EditText
+        android:id="@+id/editTextText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:layout_marginHorizontal="60sp"
+        android:hint="text"/>
+    <LinearLayout
+        android:id="@+id/layout6"
+        android:layout_below="@id/editTextText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10sp"
+            android:text="..."
+            android:textColor="@color/text"
+            android:layout_weight="1"/>
+        <LinearLayout
+            android:id="@+id/layoutc1"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
+            android:layout_marginHorizontal="7sp"
+            android:layout_marginVertical="10sp"
+            android:orientation="horizontal"
+            android:background="@drawable/button_background5"
+            >
+            <TextView
+                android:id="@+id/text3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="-"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textColor="@color/gray"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text"
+            android:text="0" />
+        <LinearLayout
+            android:id="@+id/layoutc2"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
+            android:layout_marginHorizontal="7sp"
+            android:layout_marginVertical="10sp"
+            android:orientation="horizontal"
+            android:background="@drawable/button_background4"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="+"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textColor="@color/text"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_below="@id/layout6"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20sp"
+        android:layout_marginHorizontal="20sp"
+        android:layout_height="wrap_content"
+        android:text="Button" />
+
+</RelativeLayout>
