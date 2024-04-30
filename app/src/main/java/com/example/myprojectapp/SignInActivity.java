@@ -35,6 +35,7 @@ public class SignInActivity extends AppCompatActivity {
     private EditText editText2;
     private Button button4;
     private TextView textView2;
+    private TextView textView3;
 
 
     public String userNumber, userPassword;
@@ -49,6 +50,7 @@ public class SignInActivity extends AppCompatActivity {
         editText2 = findViewById(R.id.editText2);
         button4 = findViewById(R.id.button4);
         textView2 = findViewById(R.id.textView2);
+        textView3 = findViewById(R.id.textView3);
         Window window = getWindow();
         window.setStatusBarColor(Color.parseColor("#FFFFFFFF"));
         textView2.setText("id: " + id);
@@ -67,23 +69,32 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 id = Integer.parseInt(task.getResult().getValue().toString());
-                textView2.setText("id: " + id);
+                textView2.setText("Last id: " + id);
             }
         });
+        textView3.setText("your id: " + id);
 
         layout1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 userNumber = editText1.getText().toString();
                 userPassword = editText2.getText().toString();
+                myDatabaseLastUserId.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        id = Integer.parseInt(task.getResult().getValue().toString());
+                        id++;
+                        User user = new User(userNumber, userPassword, id);
+                        myDatabaseUser.push().setValue(user);
+                        myDatabaseLastUserId.setValue(id);
+                        textView2.setText("Last id: " + id);
+                        textView3.setText("your id: " + id);
+                    }
+                });
 
 
 
 
-                id++;
-                User user = new User(userNumber, userPassword, id);
-                //myDatabaseUser.push().setValue(user);
-                //myDatabaseLastUserId.setValue(id);
             }
         });
 
