@@ -1,6 +1,7 @@
 package com.example.myprojectapp;
-
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -31,36 +32,32 @@ public class SignInActivity extends AppCompatActivity {
     private String USERS = "Users";
     private String LASTUSERID = "LastUserId";
     private LinearLayout layout1;
+    private LinearLayout layout_nav1;
+    private LinearLayout layout_nav2;
+    private LinearLayout layout_nav3;
     private EditText editText1;
     private EditText editText2;
-    private Button button4;
     private TextView textView2;
     private TextView textView3;
-
-
     public String userNumber, userPassword;
     public int id;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
         layout1 = findViewById(R.id.layout1);
+        layout_nav1 = findViewById(R.id.layout_nav1);
+        layout_nav2 = findViewById(R.id.layout_nav2);
+        layout_nav3 = findViewById(R.id.layout_nav3);
         editText1 = findViewById(R.id.editText1);
         editText2 = findViewById(R.id.editText2);
-        button4 = findViewById(R.id.button4);
         textView2 = findViewById(R.id.textView2);
         textView3 = findViewById(R.id.textView3);
         Window window = getWindow();
         window.setStatusBarColor(Color.parseColor("#FFFFFFFF"));
         textView2.setText("id: " + id);
-        button4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
 
 
         myDatabaseUser = FirebaseDatabase.getInstance().getReference(USERS);
@@ -72,8 +69,6 @@ public class SignInActivity extends AppCompatActivity {
                 textView2.setText("Last id: " + id);
             }
         });
-        textView3.setText("your id: " + id);
-
         layout1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,16 +82,40 @@ public class SignInActivity extends AppCompatActivity {
                         User user = new User(userNumber, userPassword, id);
                         myDatabaseUser.push().setValue(user);
                         myDatabaseLastUserId.setValue(id);
-                        textView2.setText("Last id: " + id);
-                        textView3.setText("your id: " + id);
+
+                        SharedPreferences mSettings = getSharedPreferences("mySettings", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = mSettings.edit();
+                        editor.putInt("id", id);
+                        editor.apply();
+
+                        Intent intent = new Intent(SignInActivity.this, Account_Activity.class);
+                        startActivity(intent);
                     }
                 });
-
-
-
-
             }
         });
-
+        SharedPreferences mSettings = getSharedPreferences("mySettings", Context.MODE_PRIVATE);
+        textView3.setText("your id:" + mSettings.getInt("id", 0));
+        layout_nav1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SignInActivity.this, MainActivity4.class);
+                startActivity(intent);
+            }
+        });
+        layout_nav2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SignInActivity.this, FavoriteActivity.class);
+                startActivity(intent);
+            }
+        });
+        layout_nav3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SignInActivity.this, TripsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

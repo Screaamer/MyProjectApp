@@ -13,6 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DatabaseReference;
+
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder>{
     private static int viewHolderCount;
     private int ListItems;
@@ -20,6 +22,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
     private int amount2;
     private Context parent;
     private MainActivity4.MyIntentInterface myInt;
+    private DatabaseReference myDatabaseApartment;
 
     public ListAdapter(int ListOfItems, Context parent , int amount1, int amount2, MainActivity4.MyIntentInterface myInt) {
         ListItems = ListOfItems;
@@ -36,12 +39,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
         int list_item = R.layout.list_item;
 
         LayoutInflater inflater = LayoutInflater.from(context);
-
         View view = inflater.inflate(list_item, parent, false);
-
         ListViewHolder viewHolder = new ListViewHolder(view);
-        viewHolder.viewHolderIndex.setText("Index" + viewHolderCount);
-        viewHolderCount++;
         return viewHolder;
     }
 

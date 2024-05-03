@@ -7,94 +7,185 @@
     android:layout_height="match_parent"
     tools:context=".SignInActivity"
     android:background="@color/white">
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="60sp"
-        android:layout_height="50sp"
-        android:layout_marginStart="15sp"
-        android:layout_marginTop="5sp"
-        android:backgroundTint="@color/main_color1"
-        android:text="✕"
-        android:textColor="@color/text"
-        android:elevation="10dp"
-        />
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_below="@id/button4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="0sp"
-        android:text="Вход или регистрация"
-        android:textSize="22sp"
-        android:textAlignment="center"
-        android:textColor="@color/text"/>
     <LinearLayout
-        android:layout_below="@+id/textView1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <EditText
-            android:id="@+id/editText1"
-            android:layout_below="@+id/textView1"
-            android:layout_width="match_parent"
-            android:layout_height="50sp"
-            android:layout_marginHorizontal="40sp"
-            android:layout_marginTop="20sp"
-            android:layout_gravity="center"
-            android:background="@drawable/edit_text_border"
-            android:hint="Номер телефона"
-            android:inputType="text"
-            android:textAlignment="center"
-            android:textColor="@color/text" />
-
-        <EditText
-            android:id="@+id/editText2"
-            android:layout_below="@+id/editText1"
-            android:layout_width="match_parent"
-            android:layout_height="50sp"
-            android:layout_marginHorizontal="40sp"
-            android:layout_marginTop="30sp"
-            android:layout_gravity="center"
-            android:background="@drawable/edit_text_border"
-            android:inputType="text"
-            android:hint="Пароль"
-            android:textAlignment="center"
-            android:textColor="@color/text" />
-
-        <LinearLayout
-            android:id="@+id/layout1"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="13"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_below="@id/button4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30sp"
-            android:layout_marginHorizontal="40sp"
-            android:orientation="vertical"
-            android:background="@drawable/button_background7">
-            <TextView
-                android:id="@+id/textView13"
+            android:layout_marginTop="0sp"
+            android:text="Вход или регистрация"
+            android:textSize="22sp"
+            android:textAlignment="center"
+            android:textColor="@color/text"/>
+
+            <EditText
+                android:id="@+id/editText1"
+                android:layout_below="@+id/textView1"
                 android:layout_width="match_parent"
-                android:layout_height="40sp"
-                android:text="Продолжить"
+                android:layout_height="50sp"
+                android:layout_marginHorizontal="40sp"
+                android:layout_marginTop="20sp"
+                android:layout_gravity="center"
+                android:background="@drawable/edit_text_border"
+                android:hint="Номер телефона"
+                android:inputType="text"
+                android:textAlignment="center"
+                android:textColor="@color/text" />
+
+            <EditText
+                android:id="@+id/editText2"
+                android:layout_below="@+id/editText1"
+                android:layout_width="match_parent"
+                android:layout_height="50sp"
+                android:layout_marginHorizontal="40sp"
+                android:layout_marginTop="30sp"
+                android:layout_gravity="center"
+                android:background="@drawable/edit_text_border"
+                android:inputType="text"
+                android:hint="Пароль"
+                android:textAlignment="center"
+                android:textColor="@color/text" />
+
+            <LinearLayout
+                android:id="@+id/layout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30sp"
+                android:layout_marginHorizontal="40sp"
+                android:orientation="vertical"
+                android:background="@drawable/button_background7">
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="match_parent"
+                    android:layout_height="40sp"
+                    android:text="Продолжить"
+                    android:gravity="center"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
                 android:gravity="center"
-                android:textColor="@color/white"/>
+                android:layout_marginTop="50sp"
+                />
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:gravity="center"
+                android:layout_marginTop="50sp"
+                />
+
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/textView2"
+        <LinearLayout
+            android:layout_below="@+id/Recyclerview1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:gravity="center"
-            android:layout_marginTop="50sp"
-            />
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:gravity="center"
-            android:layout_marginTop="50sp"
-            />
+            android:layout_height="0sp"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+            <LinearLayout
+                android:id="@+id/layout_nav1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1">
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="5sp"
+                    app:srcCompat="@drawable/nav_search"
+                    android:layout_weight="3"/>
+                <TextView
+                    android:id="@+id/nav_textView1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="3"
+                    android:text="Поиск"
+                    android:textColor="@color/gray"
+                    android:gravity="center"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layout_nav2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1">
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="5sp"
+                    app:srcCompat="@drawable/nav_favorite_border_24"
+                    android:layout_weight="3"/>
+                <TextView
+                    android:id="@+id/nav_textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="3"
+                    android:text="Вишлист"
+                    android:textColor="@color/gray"
+                    android:gravity="center"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layout_nav3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1">
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="5sp"
 
+                    app:srcCompat="@drawable/nav_airplanemode_active_24"
+                    android:layout_weight="3"/>
+                <TextView
+                    android:id="@+id/nav_textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="3"
+                    android:text="Поездки"
+                    android:textColor="@color/gray"
+                    android:gravity="center"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layout_nav4"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1">
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="5sp"
+                    app:srcCompat="@drawable/nav1_account_box_24"
+                    android:layout_weight="3"/>
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="3"
+                    android:text="Профиль"
+                    android:textColor="@color/text"
+                    android:gravity="center"/>
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
 
