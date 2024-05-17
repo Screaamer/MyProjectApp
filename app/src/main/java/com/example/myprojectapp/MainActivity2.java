@@ -166,7 +166,7 @@ public class MainActivity2 extends AppCompatActivity {
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity2.this, MainActivity.class);
+                Intent intent = new Intent(MainActivity2.this, MainActivity4.class);
                 startActivity(intent);
             }
         });
@@ -288,8 +288,7 @@ public class MainActivity2 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent1 = new Intent(MainActivity2.this,MainActivity4.class);
-                intent1.putExtra("amount1", amount1);
-                intent1.putExtra("amount2", amount2);
+                intent1.putExtra("amount", amount1 + amount2);
                 startActivity(intent1);
             }
         });

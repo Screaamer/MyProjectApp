@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ApartmentActivity"
+    android:background="@color/white">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <HorizontalScrollView
+            android:id="@+id/ScrollView1"
+            android:layout_width="wrap_content"
+            android:layout_height="300sp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="30sp">
+                <ImageView
+                    android:id="@+id/imageViewa0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/empty_image" />
+                <ImageView
+                    android:id="@+id/imageViewa1"
+                    android:layout_width="300sp"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/empty_image" />
+                <ImageView
+                    android:id="@+id/imageViewa2"
+                    android:layout_width="300sp"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/empty_image" />
+                <ImageView
+                    android:id="@+id/imageViewa3"
+                    android:layout_width="300sp"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/empty_image" />
+                <ImageView
+                    android:id="@+id/imageViewa4"
+                    android:layout_width="300sp"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/empty_image" />
+                <ImageView
+                    android:id="@+id/imageViewa5"
+                    android:layout_width="300sp"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/empty_image" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginLeft="20sp"
+            android:layout_marginTop="10sp">
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Хозяин: "
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:gravity="center"/>
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="30sp"
+                android:textColor="@color/black"
+                android:gravity="center"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

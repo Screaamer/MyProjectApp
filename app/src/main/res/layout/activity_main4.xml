@@ -11,13 +11,68 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/Recyclerview1"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="13"
-            >
-        </androidx.recyclerview.widget.RecyclerView>
+            android:orientation="vertical"
+            android:layout_weight="13">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:id="@+id/layout_filter"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_margin="16sp"
+                    android:background="@drawable/button_background"
+                    android:elevation="13sp">
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10sp"
+                        app:srcCompat="@drawable/search_search"
+                        android:layout_weight="1"/>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_marginVertical="10sp"
+                        android:layout_weight="10"
+                        >
+                        <TextView
+                            android:id="@+id/textView12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Куда?"
+                            android:textColor="@color/black"/>
+
+                        <TextView
+                            android:id="@+id/textView14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Кто едет?"
+                            android:textColor="@color/gray"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/Recyclerview1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="7"
+                >
+            </androidx.recyclerview.widget.RecyclerView>
+
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_below="@+id/Recyclerview1"
@@ -116,5 +171,7 @@
             </LinearLayout>
         </LinearLayout>
 
-</LinearLayout>
+
+
+    </LinearLayout>
 </RelativeLayout>
