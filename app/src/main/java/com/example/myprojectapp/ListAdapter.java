@@ -4,6 +4,7 @@ import static androidx.core.content.ContextCompat.startActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.util.Log;
@@ -28,12 +29,13 @@ import java.util.ArrayList;
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder>{
     Context context;
     ArrayList<Apartment> listOfApartments;
-    int amount1;
+    ArrayList<Integer> favorites;
 
-    public ListAdapter(Context context, ArrayList<Apartment> listOfApartments, int amount1) {
+
+    public ListAdapter(Context context, ArrayList<Apartment> listOfApartments, ArrayList<Integer> favorites) {
         this.context = context;
         this.listOfApartments = listOfApartments;
-        this.amount1 = amount1;
+        this.favorites = favorites;
     }
 
     @NonNull
@@ -46,23 +48,29 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
     @Override
     public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
         Apartment apartment = listOfApartments.get(position);
-        holder.textView1.setText("" + apartment.id);
-        holder.viewHolderIndex.setText("" + apartment.maxAmount);
+        holder.textView_city.setText("" + apartment.city);
+        holder.textView_adress.setText("" + apartment.address);
         Picasso.get().load(apartment.listOfImages.get(0)).into(holder.imageView1);
         ViewGroup.LayoutParams params = holder.imageView1.getLayoutParams();
         params.height = 700;
+        if (favorites.contains(apartment.apartmentId)){
+            holder.imageView_favorite.setImageResource(R.drawable.baseline_favorite_24);
+            holder.flag = true;
+        }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ApartmentActivity.class);
-                intent.putExtra("apartment", apartment.id);
-                intent.putExtra("landlord", apartment.landlord);
+                intent.putExtra("apartment", apartment.apartmentId);
+                intent.putExtra("landlordId", apartment.landlordId);
                 intent.putExtra("images", apartment.listOfImages);
+                intent.putExtra("flag", holder.flag);
+                intent.putExtra("description", apartment.description);
+                intent.putExtra("MaxAmount", apartment.maxAmount);
                 context.startActivity(intent);
             }
         });
-
     }
 
     @Override
@@ -71,15 +79,16 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
     }
 
     public static class ListViewHolder extends RecyclerView.ViewHolder{
-        TextView textView1, viewHolderIndex;
-        ImageView imageView1;
+        TextView textView_city, textView_adress;
+        ImageView imageView1, imageView_favorite;
+        boolean flag;
         public ListViewHolder(@NonNull View itemView) {
             super(itemView);
-
-            textView1 = itemView.findViewById(R.id.textView1);
-            viewHolderIndex = itemView.findViewById(R.id.viewHolderIndex);
+            textView_city = itemView.findViewById(R.id.textView_city);
+            textView_adress = itemView.findViewById(R.id.textView_adress);
             imageView1 = itemView.findViewById(R.id.imageView1);
-
+            imageView_favorite = itemView.findViewById(R.id.imageView_favorite);
+            flag = false;
         }
     }
 }

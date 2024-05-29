@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.content.ContextCompat;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -39,14 +41,17 @@ import java.util.ArrayList;
 public class MainActivity3 extends AppCompatActivity {
     private DatabaseReference myDatabaseApartments;
     private DatabaseReference myDatabaseLastApatmentId;
-    public String landlord, address;
+    public String landlord, address, city, description;
     public int id, maxAmount;
-    private int nOfIm;
+    private int nOfIm, userId;
     private EditText EditTextText;
+    private EditText EditTextText1;
+    private EditText EditTextText_description;
     private LinearLayout layoutc1;
     private LinearLayout layoutc2;
     private LinearLayout layout_button;
     private TextView Text3;
+    private TextView textView_err1, textView_err2, textView_err3;
     private TextView TextView2;
     private ImageView imageViewa1;
     private ImageView imageViewa2;
@@ -69,11 +74,16 @@ public class MainActivity3 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
         EditTextText = findViewById(R.id.editTextText);
+        EditTextText1 = findViewById(R.id.editTextText1);
+        EditTextText_description = findViewById(R.id.editTextText_description);
         layoutc1 = findViewById(R.id.layoutc1);
         layoutc2 = findViewById(R.id.layoutc2);
         layout_button = findViewById(R.id.layout_button);
         TextView2 = findViewById(R.id.textView2);
         Text3 = findViewById(R.id.text3);
+        textView_err1 = findViewById(R.id.textView_err1);
+        textView_err2 = findViewById(R.id.textView_err2);
+        textView_err3 = findViewById(R.id.textView_err3);
         imageViewa1 = findViewById(R.id.imageViewa1);
         imageViewa2 = findViewById(R.id.imageViewa2);
         imageViewa3 = findViewById(R.id.imageViewa3);
@@ -86,6 +96,9 @@ public class MainActivity3 extends AppCompatActivity {
 
         Window window = getWindow();
         window.setStatusBarColor(Color.parseColor("#FFFFFFFF"));
+
+        SharedPreferences mSettings = getSharedPreferences("mySettings", Context.MODE_PRIVATE);
+        userId = mSettings.getInt("id", 0);
 
         a1 = false;
         a2 = false;
@@ -126,16 +139,36 @@ public class MainActivity3 extends AppCompatActivity {
         layout_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                myDatabaseLastApatmentId.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DataSnapshot> task) {
-                        id = Integer.parseInt(task.getResult().getValue().toString());
-                        id++;
-                        uploadImage(id);
-                        Intent intent = new Intent(MainActivity3.this, MainActivity4.class);
-                        startActivity(intent);
-                    }
-                });
+                address = EditTextText1.getText().toString();
+                city = EditTextText.getText().toString();
+                description = EditTextText_description.getText().toString();
+                if (city.isEmpty()){
+                    textView_err1.setVisibility(View.VISIBLE);
+                }else {
+                    textView_err1.setVisibility(View.GONE);
+                }
+                if (address.isEmpty()) {
+                    textView_err2.setVisibility(View.VISIBLE);
+                }else {
+                    textView_err2.setVisibility(View.GONE);
+                }
+                if (description.isEmpty()){
+                    textView_err3.setVisibility(View.VISIBLE);
+                }else {
+                    textView_err3.setVisibility(View.GONE);
+                }
+                if (!address.isEmpty() && !city.isEmpty() && !description.isEmpty()){
+                    myDatabaseLastApatmentId.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            id = Integer.parseInt(task.getResult().getValue().toString());
+                            id++;
+                            uploadImage(id);
+                            Intent intent = new Intent(MainActivity3.this, MainActivity4.class);
+                            startActivity(intent);
+                        }
+                    });
+                }
             }
         });
         imageViewa1.setOnClickListener(new View.OnClickListener() {
@@ -171,8 +204,10 @@ public class MainActivity3 extends AppCompatActivity {
     }
     private void saveUser(int id){
         Log.d("My Log", "Image URI   "  +listOfImages.size());
-        address = EditTextText.getText().toString();
-        Apartment apartment = new Apartment(id, landlord, address, maxAmount, listOfImages);
+        address = EditTextText1.getText().toString();
+        city = EditTextText.getText().toString();
+        description = EditTextText_description.getText().toString();
+        Apartment apartment = new Apartment(id, userId, city, address, maxAmount, listOfImages, description);
         myDatabaseApartments.child(id + "").setValue(apartment);
         myDatabaseLastApatmentId.setValue(id);
     }

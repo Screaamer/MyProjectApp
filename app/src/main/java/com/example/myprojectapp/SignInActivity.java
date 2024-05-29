@@ -26,6 +26,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class SignInActivity extends AppCompatActivity {
     private DatabaseReference myDatabaseUser;
     private DatabaseReference myDatabaseLastUserId;
@@ -34,14 +36,17 @@ public class SignInActivity extends AppCompatActivity {
     private LinearLayout layout1;
     private LinearLayout layout_nav1;
     private LinearLayout layout_nav2;
-    private LinearLayout layout_nav3;
     private EditText editText1;
     private EditText editText2;
-    private TextView textView2;
-    private TextView textView3;
-    public String userNumber, userPassword;
-    public int id;
-
+    private EditText editText3;
+    private EditText editText4;
+    private TextView textView_err1;
+    private TextView textView_err2;
+    private TextView textView_err3;
+    private TextView textView_err4;
+    public String userPhone, userPassword, userName, userTg;
+    public int userId;
+    private ArrayList<Integer> favorites;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,52 +55,72 @@ public class SignInActivity extends AppCompatActivity {
         layout1 = findViewById(R.id.layout1);
         layout_nav1 = findViewById(R.id.layout_nav1);
         layout_nav2 = findViewById(R.id.layout_nav2);
-        layout_nav3 = findViewById(R.id.layout_nav3);
         editText1 = findViewById(R.id.editText1);
         editText2 = findViewById(R.id.editText2);
-        textView2 = findViewById(R.id.textView2);
-        textView3 = findViewById(R.id.textView3);
+        editText3 = findViewById(R.id.editText3);
+        editText4 = findViewById(R.id.editText4);
+        textView_err1 = findViewById(R.id.textView_err1);
+        textView_err2 = findViewById(R.id.textView_err2);
+        textView_err3 = findViewById(R.id.textView_err3);
+        textView_err4 = findViewById(R.id.textView_err4);
+        favorites = new ArrayList<>();
+        favorites.add(0);
+
         Window window = getWindow();
         window.setStatusBarColor(Color.parseColor("#FFFFFFFF"));
-        textView2.setText("id: " + id);
-
 
         myDatabaseUser = FirebaseDatabase.getInstance().getReference(USERS);
         myDatabaseLastUserId = FirebaseDatabase.getInstance().getReference(LASTUSERID);
-        myDatabaseLastUserId.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                id = Integer.parseInt(task.getResult().getValue().toString());
-                textView2.setText("Last id: " + id);
-            }
-        });
+
         layout1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                userNumber = editText1.getText().toString();
+                userPhone = editText1.getText().toString();
                 userPassword = editText2.getText().toString();
-                myDatabaseLastUserId.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DataSnapshot> task) {
-                        id = Integer.parseInt(task.getResult().getValue().toString());
-                        id++;
-                        User user = new User(userNumber, userPassword, id);
-                        myDatabaseUser.push().setValue(user);
-                        myDatabaseLastUserId.setValue(id);
+                userName = editText3.getText().toString();
+                userTg = editText4.getText().toString();
+                if (userPhone.isEmpty()){
+                    textView_err1.setVisibility(View.VISIBLE);
+                }else {
+                    textView_err1.setVisibility(View.GONE);
+                }
+                if (userPassword.length() < 8) {
+                    textView_err2.setVisibility(View.VISIBLE);
+                }else {
+                    textView_err2.setVisibility(View.GONE);
+                }
+                if (userName.isEmpty()){
+                    textView_err3.setVisibility(View.VISIBLE);
+                }else {
+                    textView_err3.setVisibility(View.GONE);
+                }
+                if (userTg.isEmpty()){
+                    textView_err4.setVisibility(View.VISIBLE);
+                }else {
+                    textView_err4.setVisibility(View.GONE);
+                }
+                if (!userPhone.isEmpty() && userPassword.length() > 7 && !userName.isEmpty() && !userTg.isEmpty()){
+                    myDatabaseLastUserId.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            userId = Integer.parseInt(task.getResult().getValue().toString());
+                            userId++;
+                            User user = new User(userPhone, userPassword, userName, userTg, userId, favorites);
+                            myDatabaseUser.child(userId + "").setValue(user);
+                            myDatabaseLastUserId.setValue(userId);
 
-                        SharedPreferences mSettings = getSharedPreferences("mySettings", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = mSettings.edit();
-                        editor.putInt("id", id);
-                        editor.apply();
+                            SharedPreferences mSettings = getSharedPreferences("mySettings", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = mSettings.edit();
+                            editor.putInt("id", userId);
+                            editor.apply();
 
-                        Intent intent = new Intent(SignInActivity.this, Account_Activity.class);
-                        startActivity(intent);
-                    }
-                });
+                            Intent intent = new Intent(SignInActivity.this, Account_Activity.class);
+                            startActivity(intent);
+                        }
+                    });
+                }
             }
         });
-        SharedPreferences mSettings = getSharedPreferences("mySettings", Context.MODE_PRIVATE);
-        textView3.setText("your id:" + mSettings.getInt("id", 0));
         layout_nav1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,13 +132,6 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SignInActivity.this, FavoriteActivity.class);
-                startActivity(intent);
-            }
-        });
-        layout_nav3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SignInActivity.this, TripsActivity.class);
                 startActivity(intent);
             }
         });
